@@ -36,6 +36,24 @@ SOURCE_MAP = {
     'form.battleforthenet': {
         'name': 'Battle for the Net',
         'url': 'https://www.battleforthenet.com/'
+    },
+    'form.freeourinternet': {
+        'name': "Free Our Internet",
+        'url': 'https://freeourinternet.org/'
+    },
+    'reddit.technology': {
+        'name': 'Reddit?',
+        'url': 'https://www.reddit.com/r/technology/comments/6894i9/heres_how_to_contact_the_fcc_with_your_thoughts/'
+    },
+    'form.tpa': {
+        'name': 'Taxspayers Protection Alliance',
+        'url': 'https://www.protectingtaxpayers.org/take-action/'
+    },
+    'form.diminished-investment': {
+        'name': '"Diminished Investment" bot',
+    },
+    'blog.venturebeat': {
+        'name': 'VentureBeat?'
     }
 }
 
@@ -134,7 +152,7 @@ def browse(request):
         }
     })
 
-    response = s.execute()
+    response = s[:50].execute()
     total = s.count()
     for bucket in response.aggregations.address.buckets:
         if bucket.key == 1:
