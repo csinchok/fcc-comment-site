@@ -140,7 +140,7 @@ def browse(request):
         elif bucket.key == 0:
             stats['Address']['Partial Address'] = bucket.doc_count
 
-    for bucket in response.aggregations.address.buckets:
+    for bucket in response.aggregations.site.buckets:
         if bucket.key == 1:
             stats['Comment Form']['On-site'] = bucket.doc_count
         elif bucket.key == 0:
