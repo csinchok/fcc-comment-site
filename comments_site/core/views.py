@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.conf import settings
 from django.shortcuts import render
 import time
@@ -110,16 +111,17 @@ def browse(request):
         'false': {'term': {'emailConfirmation': 'false'}}
     }))
 
+    s.aggs.bucket('unique_emails', A('cardinality', field='contact_email.raw'))
+
     # s.aggs.bucket('email_confirmation', A('filters', field='analysis.fulladdress'))
 
-    stats = {
+    stats = OrderedDict({
         'Comment Form': {
             'On-site': 0,
             'Off-site': 0
         },
         'Emails': {
             'Unique': 0,
-            'Repeated': 0
         },
         'Address': {
             'Full Address': 0,
@@ -130,7 +132,7 @@ def browse(request):
             'False': 0,
             'Missing': 0
         }
-    }
+    })
 
     response = s.execute()
     total = s.count()
@@ -145,6 +147,9 @@ def browse(request):
             stats['Comment Form']['On-site'] = bucket.doc_count
         elif bucket.key == 0:
             stats['Comment Form']['Off-site'] = bucket.doc_count
+
+    print(response.aggregations.unique_emails)
+    stats['Emails']['Unique'] = response.aggregations.unique_emails.value
 
     # for bucket in response.aggregations.email_confirmation.buckets:
     #     if bucket == 'true':
