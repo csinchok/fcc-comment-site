@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FCC Comments, analyzed</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+  </head>
+  <body>
+      <header class="navbar navbar-light bg-faded">
+          <nav class="container">
+              <a class="navbar-brand" href="/">FCC Comment Analysis</a>
+          </nav>
+      </header>
+
+
+    {% block body %}{% endblock %}
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="{% static 'jquer/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'tether/dist/js/tether.min.js"></script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

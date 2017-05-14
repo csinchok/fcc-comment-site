@@ -1,0 +1,57 @@
+{% extends "base.html" %}{% load humanize %}
+
+{% block body %}
+<style>
+    .data-row {
+        text-overflow: ellipsis;
+        max-width: 600px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">{{ description }}: {{ comment_count|intcomma }}</h1>
+    <p class="lead">Here's what that looks like:</p>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        {% for name, stat_dict in stats.items %}
+        <div class="col-md-3">
+            <h5>{{ name }}</h5>
+            <ul class="list-group">
+                {% for key, count in stat_dict.items %}
+                <li class="list-group-item justify-content-between">
+                    {{ key }}
+                    <span class="badge badge-default badge-pill">{{ count|intcomma }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+
+    <table class="table table-sm">
+        <thead class="https://www.fcc.gov/ecfs/filing/">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td><a href="https://www.fcc.gov/ecfs/filing/{{ result.id_submission }}">{{ result.id_submission }}</a></td>
+                <td>{{ result.filers.0.name }}</td>
+                <td><div class="data-row">{{ result.text_data }}</div></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

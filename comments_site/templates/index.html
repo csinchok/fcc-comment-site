@@ -1,0 +1,45 @@
+{% extends "base.html" %}{% load humanize %}
+
+{% block body %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">Total FCC Comments: {{ total_comments|intcomma }}</h1>
+    <p class="lead">Here's what that looks like:</p>
+  </div>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div class='col-md-6'>
+            <h4>Overall Sentiment</h4>
+            <ul class="list-group">
+                <li class="list-group-item justify-content-between">
+                    <a href="/browse?titleii=pro">Pro Title II</a>
+                    <span class="badge badge-default badge-pill">{{ title_ii.pro|floatformat:2 }}%</span>
+                </li>
+                <li class="list-group-item justify-content-between">
+                    <a href="/browse?titleii=anti">Anti Title II</a>
+                    <span class="badge badge-default badge-pill">{{ title_ii.anti|floatformat:2 }}%</span>
+                </li>
+                <li class="list-group-item justify-content-between">
+                     <a href="/browse?titleii=unknown">Unclassified</a>
+                    <span class="badge badge-default badge-pill">{{ title_ii.unknown|floatformat:2 }}%</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Top Sources</h4>
+            <ul class="list-group">
+                {% for source in sources %}
+                <li class="list-group-item justify-content-between">
+                    <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
+                    <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
