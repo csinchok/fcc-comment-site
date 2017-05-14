@@ -1,0 +1,1 @@
+This is just a frontend to display by FCC analysis, pulling the data out of ElasticSearch. The actualy analysis/indexing code is avalable here: [https://github.com/csinchok/fcc-comment-analysis](https://github.com/csinchok/fcc-comment-analysis)
