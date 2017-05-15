@@ -166,17 +166,16 @@ def browse(request):
         elif bucket.key == 0:
             stats['Comment Form']['Off-site'] = bucket.doc_count
 
-    print(response.aggregations.unique_emails)
     stats['Emails']['Unique'] = response.aggregations.unique_emails.value
 
-    # for bucket in response.aggregations.email_confirmation.buckets:
-    #     if bucket == 'true':
-    #         stats['Email Confirmation']['True'] = response.aggregations.email_confirmation.buckets['true']['doc_count']
-    #     elif bucket == 'false':
-    #         stats['Email Confirmation']['False'] = response.aggregations.email_confirmation.buckets['false']['doc_count']
-    # stats['Email Confirmation']['Missing'] = (
-    #     total - stats['Email Confirmation']['True'] - stats['Email Confirmation']['False']
-    # )
+    for bucket, value in response.aggs.email_confirmation.to_dict()['buckets'].items():
+        if bucket == 'true':
+            stats['Email Confirmation']['True'] = value['doc_count']
+        elif bucket == 'false':
+            stats['Email Confirmation']['False'] = value['doc_count']
+    stats['Email Confirmation']['Missing'] = (
+        total - stats['Email Confirmation']['True'] - stats['Email Confirmation']['False']
+    )
 
     context = {
         'description': description,
