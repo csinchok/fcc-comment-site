@@ -12,6 +12,8 @@
     <div class="row">
         <div class='col-md-6'>
             <h4>Overall Sentiment</h4>
+            <p>I try to determine this based on the comment source, and lacking that, a number
+                of very naiive regexes. If you'd like to help with this, <a href="https://github.com/csinchok/fcc-comment-analysis/issues/2">let me know.</a></p>
             <ul class="list-group">
                 <li class="list-group-item justify-content-between">
                     <a href="/browse?titleii=pro">Pro Title II</a>
@@ -22,7 +24,7 @@
                     <span class="badge badge-default badge-pill">{{ title_ii.anti|floatformat:2 }}%</span>
                 </li>
                 <li class="list-group-item justify-content-between">
-                     <a href="/browse?titleii=unknown">Unclassified</a>
+                     <a href="/browse?titleii=unknown">Uncategorized</a>
                     <span class="badge badge-default badge-pill">{{ title_ii.unknown|floatformat:2 }}%</span>
                 </li>
             </ul>
@@ -30,6 +32,7 @@
 
         <div class="col-md-6">
             <h4>Top Message Formats</h4>
+            <p>These are the most common repeated messages, labeled by what I have guessed to be the source</p>
             <ul class="list-group">
                 {% for source in sources %}
                 <li class="list-group-item justify-content-between">
